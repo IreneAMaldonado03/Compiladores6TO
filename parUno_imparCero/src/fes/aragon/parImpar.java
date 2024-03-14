@@ -7,72 +7,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class parImpar {
-    private static final int ESTADO_INICIAL = 0;
-    private static final int ESTADO_PAR = 1;
-    private static final int ESTADO_IMPAR = 2;
-    private static final int ESTADO_ERROR = 3;
-
     public static void main(String[] args) {
-        String archivo = "fuente.txt";
-        try {
-            FileReader fileReader = new FileReader(archivo);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String linea;
-            while ((linea = bufferedReader.readLine()) != null) {
-                int estado = ESTADO_INICIAL;
-                int contadorPares = 0;
-                int contadorImpares = 0;
-                for (char caracter : linea.toCharArray()) {
-                    switch (estado) {
-                        case ESTADO_INICIAL:
-                            if (caracter == '0') {
-                                estado = ESTADO_IMPAR;
-                                contadorImpares++;
-                            } else if (caracter == '1') {
-                                estado = ESTADO_PAR;
-                                contadorPares++;
-                            } else {
-                                estado = ESTADO_ERROR;
-                            }
-                            break;
-                        case ESTADO_PAR:
-                            if (caracter == '0') {
-                                estado = ESTADO_IMPAR;
-                                contadorImpares++;
-                            } else if (caracter == '1') {
-                                estado = ESTADO_PAR;
-                                contadorPares++;
-                            } else {
-                                estado = ESTADO_ERROR;
-                            }
-                            break;
-                        case ESTADO_IMPAR:
-                            if (caracter == '0') {
-                                estado = ESTADO_IMPAR;
-                                contadorImpares++;
-                            } else if (caracter == '1') {
-                                estado = ESTADO_PAR;
-                                contadorPares++;
-                            } else {
-                                estado = ESTADO_ERROR;
-                            }
-                            break;
-                        case ESTADO_ERROR:
-                            System.out.println("Caracter o caracteres invalidos detectados en la linea " + linea);
-                            break;
-                    }
+    String archivo = "fuente.txt";
+    try {
+        FileReader fileReader = new FileReader(archivo);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String linea;
+        int lineaActual = 0;
+        while ((linea = bufferedReader.readLine()) != null) {
+            lineaActual++;
+            System.out.println("Linea " + lineaActual + ": " + linea);
+            boolean paresDeUnoValido = true;
+            boolean imparesDeCeroValido = true;
+            for (char c : linea.toCharArray()) {
+                if (c != '0' && c != '1') {
+                    System.out.println("Caracter o caracteres invalidos detectados en la linea " + lineaActual + ". Solo se aceptan 0 y 1");
+                    paresDeUnoValido = false;
+                    imparesDeCeroValido = false;
+                    break;
                 }
-                if (estado == ESTADO_INICIAL || estado == ESTADO_PAR) {
-                    System.out.println(linea + " valida para pares de uno, valida para impares de cero");
-                } else if (estado == ESTADO_IMPAR) {
-                    System.out.println(linea + " invalida para pares de uno, invalida para impares de cero");
-                } else if (estado == ESTADO_ERROR) {
-                    System.out.println("Caracter o caracteres invalidos detectados en la linea " + linea);
+                if (c == '1') {
+                    paresDeUnoValido = false;
+                }
+                if (c == '0') {
+                    imparesDeCeroValido = false;
                 }
             }
-            bufferedReader.close();
-        } catch (IOException e) {
-            System.out.println("Error al leer el archivo " + archivo);
+            if (paresDeUnoValido) {
+                System.out.println("Valida para pares de uno");
+            } else {
+                System.out.println("Invalida para pares de uno");
+            }
+            if (imparesDeCeroValido) {
+                System.out.println("Valida para impares de cero");
+            } else {
+                System.out.println("Invalida para impares de cero");
+            }
+            System.out.println();
         }
+        bufferedReader.close();
+    } catch (IOException e) {
+        System.out.println("Error al leer el archivo: " + e.getMessage());
     }
+}
 }
