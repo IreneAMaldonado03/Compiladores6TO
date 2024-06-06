@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.proyecto.InicioController">
+  <children>
+    <FlowPane prefHeight="640.0" prefWidth="280.0">
+      <children>
+        <VBox prefHeight="640.0" prefWidth="280.0">
+          <children>
+            <TextArea fx:id="txtCode" prefHeight="598.0" prefWidth="280.0" />
+            <Button fx:id="btnCompilar" mnemonicParsing="false" onAction="#getCode" prefHeight="43.0" prefWidth="280.0" text="Compilar" />
+          </children>
+        </VBox>
+      </children>
+    </FlowPane>
+    <Pane fx:id="paneEscenario" layoutX="282.0" layoutY="2.0" prefHeight="640.0" prefWidth="640.0" />
+  </children>
+</Pane>
